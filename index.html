@@ -1,37 +1,22 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width"/>
 <meta charset="utf-8">
 <style type="text/css">
     body {
         font-size: 100%;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        width: 960px;
     }
-    #refresh-btn {
-        float: right;
-        font-size: 12px;
-        border-radius: 0;
-    }
-    .svg-container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
-    vertical-align: top;
-    overflow: hidden;
-}
-.svg-content-responsive {
+    .svg-content {
     display: inline-block;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
 }
-.svg-container {
+#donut-charts {
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
-    vertical-align: top;
+    padding-bottom: 3%; /* aspect ratio */
+    vertical-align: middle;
     overflow: hidden;
 }
 
@@ -127,12 +112,10 @@
 }
 ];
 
+
         var donuts = new DonutCharts();
         donuts.create(donutData);
 
-        $('#refresh-btn').on('click', function refresh() {
-            donuts.update(genData);
-        });
 
     });
     
@@ -245,12 +228,6 @@
                     return (sum)? (sum/d.total*100).toFixed(2) + '%'
                                 : '';
                 });
-
-            thisDonut.select('.cat')
-                .text(function(d) {
-                    return(d.data);
-
-                });
         }
 
         var resetAllCenterText = function() {
@@ -298,7 +275,6 @@
                     thisDonut.select('.percentage').text(function(donut_d) {
                         return (d.data.val/donut_d.total*100).toFixed(2) + '%';
                     });
-
                 },
                 
                 'mouseout': function(d, i, j) {
@@ -367,28 +343,20 @@
 
         this.create = function(dataset) {
             var $charts = $('#donut-charts');
-            chart_m = $charts.innerWidth() / dataset.length / 2 * 0.14;
-            chart_r = $charts.innerWidth() / dataset.length / 2 * 0.85;
+            chart_m = 500 * 0.14;
+            chart_r = 500 * 0.85;
 
-            charts.append('svg')
-            .classed("svg-container", true)
-                .attr('class', 'legend')
-             .attr("preserveAspectRatio", "xMinYMin meet")
-                             .attr("viewBox", "0 0 1200 50")                  .attr('transform', 'translate(0, -100)') .classed("svg-content-responsive", true);
 
             var donut = charts.selectAll('#donut-charts')
                             .classed("svg-container", true)
                             .data(dataset)
                         .enter().append('svg:svg')
                            .attr("preserveAspectRatio", "xMinYMin meet")
-                             .attr("viewBox", "0 0 960 960")  
+                             .attr("viewBox", "0 0 1000 1000")  
                              .classed("svg-content-responsive", true)                     
                             .append('svg:g')
-                            .attr('class', function(d, i) {
-                                return 'donut type' + i
-                            })
-                            .attr('transform', 'translate(' + (chart_r+chart_m) + ',' + (chart_r+chart_m) + ')');
-
+                            .attr('class', 'donut type')
+                            .attr('transform', 'translate(' + 500 + ',' + 500 + ')');
             createLegend(getCatNames(dataset));
             createCenter();
 
@@ -405,4 +373,6 @@
     }
 
     </script>
+
+
 </body>
