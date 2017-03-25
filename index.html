@@ -31,6 +31,7 @@
 var commas = d3.format(",");
 
 
+
     $(function() {
 
         var donutData = [
@@ -90,9 +91,13 @@ var commas = d3.format(",");
   {
     "cat": "Turkey",
     "val": 49640
+  },
+  {
+    "cat": "Australia",
+    "val": 20859
   }
 ],
-"total": 4794177
+"total": 4773318
 }
 ];
 
@@ -111,6 +116,7 @@ var commas = d3.format(",");
         var chart_m,
             chart_r,
             color = d3.scale.category20();
+
 
         var getCatNames = function(dataset) {
             var catNames = new Array();
@@ -134,9 +140,8 @@ var commas = d3.format(",");
             legends.append('circle')
                 .attr('class', 'legend-icon')
                 .attr('r', 6)
-                .style('fill', function(d, i) {
-                    return color(i);
-                });
+                .style('fill', function(d) {
+                    return 'rgba(31, 119, 180,' + d.data.val/donut_d.total*100 + ' )'});
     
             legends.append('text')
                 .attr('dx', '1em')
@@ -297,12 +302,30 @@ var commas = d3.format(",");
                 .duration(1000)
                 .attr('d', arc);
 
+// var o = d3.scale.ordinal()
+//     .domain(d.val)
+//     .rangePoints([0, 1]);
+
             paths.enter()
                 .append('svg:path')
                     .attr('d', arc)
                     .style('fill', function(d, i) {
-                        return color(i);
-                    })
+var percents = [0.84677786,
+0.67877313,
+0.582867515,
+0.565549582,
+0.347269551,
+0.3149809,
+0.313598214,
+0.090324592,
+0.073339342,
+0.068528432,
+0.052825309,
+0.041926392,
+0.041597899,
+0.017479665]
+                    return 'rgba(14, 21, 49,' + (percents[i]+.15) + ')' ;}) 
+                        // return color(i);})                    
                     .style('stroke', '#FFFFFF')
                     .on(eventObj)
 
