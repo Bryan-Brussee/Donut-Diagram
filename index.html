@@ -15,7 +15,7 @@
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 3%; /* aspect ratio */
+    padding-bottom: 0; /* aspect ratio */
     vertical-align: middle;
     overflow: hidden;
 }
@@ -64,7 +64,7 @@ var commas = d3.format(",");
     "val": 374827
   },
   {
-    "cat": "Other countries",
+    "cat": "other countries",
     "val": 374226
   },
   {
@@ -258,7 +258,7 @@ var commas = d3.format(",");
 
                     var thisDonut = charts.select('.type' + j);
                     thisDonut.select('.value').text(function(donut_d) {
-                        return commas(d.data.val.toFixed()) + " persons of concern recieved by " + d.data.cat;
+                        return commas(d.data.val.toFixed()) + " persons of concern received by " + d.data.cat;
                     });
                     thisDonut.select('.percentage').text(function(donut_d) {
                         return (d.data.val/donut_d.total*100).toFixed(2) + '%';
